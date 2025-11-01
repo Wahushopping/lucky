@@ -114,7 +114,7 @@ h2 {
   const params = new URLSearchParams(window.location.search);
   const secret = params.get("secret");
 
-  fetch(`http://localhost:4000/api/user-data/${secret}`)
+  fetch(`https://luckybackend.onrender.com/api/user-data/${secret}`)
     .then(res => res.json())
     .then(data => {
       if (!data.success) {
@@ -149,3 +149,4 @@ h2 {
 
 </body>
 </html>
+
