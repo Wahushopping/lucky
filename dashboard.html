@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+   body {
+  background: url("images/6128359.jpg") no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+
+/* Dark overlay for readability */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
+  z-index: -1;
+}
+
+/* Center box */
+.box {
+  background: rgba(130, 247, 115, 0.92);
+  padding: 25px;
+  width: 90%;
+  max-width: 370px;
+  margin: 50px auto;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(255,255,255,0.4);
+  backdrop-filter: blur(10px);
+  animation: pop 0.8s ease-out;
+}
+
+/* Heading Style */
+h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #fff;
+  text-shadow: 0 0 6px #fff, 0 0 14px #ffcc00;
+  font-size: 26px;
+  animation: glow 2.5s infinite ease-in-out;
+}
+
+/* User data container cards */
+.record-box {
+  background: rgba(255,255,255,0.8);
+  padding: 14px;
+  margin-top: 12px;
+  border-radius: 10px;
+  border-left: 4px solid #ffcc00;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Tickets styling */
+.ticket {
+  display: inline-block;
+  background: #ffeb9b;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin: 4px 3px;
+  font-size: 14px;
+  border: 1px solid #d4b100;
+}
+
+/* Animations */
+@keyframes pop {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes glow {
+  0%,100% { text-shadow: 0 0 5px #fff, 0 0 15px #ffcc00; }
+  50% { text-shadow: 0 0 10px #fff, 0 0 30px #ffcc00; }
+}
+
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Your Dashboard</h2>
+
+  <div id="userData">
+    Loading data...
+  </div>
+</div>
+<div style="text-align: center; color: #ffffff;">
+  
+  <a href="https://wahushoping.vercel.app/Lucky.html" style="width: 200px; background-color: chocolate; padding: 10px; border-radius: 10px; font-weight: bolder; color: #fff;">More Ticket Book</a>
+  <h2>Lottary Date&Time</h2>
+  <h3 style="color: #d4b100;">"Super Christmas Lucky draw"</h3>
+  <h4>Date: 25 Dec 2025 Time: 7pm</h4>
+  <h3 style="color: #d4b100;">"Pro Christmas Lucky draw "</h3>
+  <h4>Date: 25 Dec 2025 Time:8pm</h4>
+  <h3 style="color: #d4b100;">"Refurbished Christmas Lucky draw"</h3>
+  <h4>Date: 25 Dec 2025 Time:9pm</h4>
+  <br>
+  <h3 style="color: #00d440;">"Super New Year Lucky draw"</h3>
+  <h4>Date: 01 Jan 2026 Time:1am</h4>
+  <h3 style="color: #00d440;">"Pro New Year Lucky draw"</h3>
+  <h4>Date: 01 Jan 2026 Time:7pm</h4>
+  <h3 style="color: #00d440;">"Refurbished New Year Lucky draw"</h3>
+  <h4>Date: 01 Jan 2026 Time:8pm</h4>
+
+</div>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const secret = params.get("secret");
+
+  fetch(`http://localhost:4000/api/user-data/${secret}`)
+    .then(res => res.json())
+    .then(data => {
+      if (!data.success) {
+        document.getElementById("userData").innerHTML = "❌ No records found.";
+        return;
+      }
+
+      let html = `<h3>Secret Code: ${secret}</h3>`;
+
+      data.records.forEach((user, index) => {
+        html += `
+          <div class="record-box">
+
+            <strong>Entry ${index + 1}</strong><br>
+            Title : ${user.choice}<br>
+            Order ID: ${user.orderId}<br>
+            Token Count: ${user.token}<br>
+
+           
+            Tickets:<br>
+           ${user.tickets.map(t => `<span class="ticket">🎟️ ${t}</span>`).join(" ")}
+
+            
+          </div>
+        `;
+      });
+
+      document.getElementById("userData").innerHTML = html;
+    });
+</script>
+
+
+</body>
+</html>

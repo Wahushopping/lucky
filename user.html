@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Secret Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.75); /* ← Adjust darkness */
+  backdrop-filter: blur(2px); /* optional soft blur */
+  z-index: -1;
+}
+
+    body {
+  background: url("images/6128359.jpg") no-repeat center center fixed;
+  background-size: cover;
+  animation: bgAnimation 12s infinite alternate ease-in-out;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+
+
+   @keyframes snow {
+  0% { transform: translateY(-10vh); opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+.snowflake {
+  position: fixed;
+  top: -10px;
+  color: #fff;
+  font-size: 1.4rem;
+  pointer-events: none;
+  animation: snow 10s linear infinite;
+  opacity: 0.9;
+  z-index: 9999;
+}
+
+.snowflake:nth-child(even) { animation-duration: 12s; }
+.snowflake:nth-child(odd) { animation-duration: 8s; }
+
+
+
+    @keyframes snowFall {
+      from { background-position: 0 -100%; }
+      to { background-position: 0 100%; }
+    }
+
+    @keyframes bgAnimation {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    h4 {
+      text-align:center;
+      margin:0;
+      padding:5px;
+      color: white;
+      font-size: 20px;
+      text-shadow: 0 0 8px rgba(255,255,255,0.7);
+      animation: glow 2s infinite ease-in-out;
+    }
+
+    @keyframes glow {
+      0%,100% { text-shadow: 0 0 4px #fff, 0 0 12px #ffcc00; }
+      50% { text-shadow: 0 0 8px #fff, 0 0 22px #ffcc00; }
+    }
+
+    .box {
+      background: rgba(255,255,255,0.9);
+      padding: 25px;
+      border-radius: 12px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(255,255,255,0.5);
+      backdrop-filter: blur(8px);
+      animation: pop 0.8s ease-out;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    input {
+      width: 275px;
+      padding: 12px;
+      margin-top: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      background: #ff2e63;
+      color: white;
+      box-shadow: 0 4px 12px rgba(255,0,80,0.4);
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ff0048;
+      transform: scale(1.05);
+    }
+
+    .error { color: red; margin-top: 8px; font-size: 14px; display:none; }
+
+    .festive-header {
+  text-align: center;
+  padding: 20px 0 40px;
+  color: #ffffff;
+  animation: fadeIn 1.2s ease-out;
+}
+
+.festive-header h2 {
+  font-size: 26px;
+  margin: 5px 0;
+  text-shadow: 0 0 6px rgba(255,255,255,0.9), 0 0 18px rgba(255,220,130,0.9);
+  animation: glowTitle 2.8s infinite ease-in-out;
+}
+
+.or-text {
+  font-size: 18px;
+  margin: 6px 0;
+  opacity: 0.85;
+  text-shadow: 0 0 6px rgba(255,255,255,0.7);
+}
+
+/* Glow animation */
+@keyframes glowTitle {
+  0%,100% { text-shadow: 0 0 6px #fff, 0 0 12px #ffcc00; }
+  50% { text-shadow: 0 0 12px #fff, 0 0 28px #ffcc00; }
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+  </style>
+</head>
+
+<body>
+ <div class="festive-header">
+  <h2>🎄 Merry Christmas Lucky Draw 🎄</h2>
+  <div class="or-text">&</div>
+  <h2>🎉 Happy New Year Lucky Draw 🎉</h2>
+</div>
+
+   <br>
+  <div class="box">
+    <h2>Login with Mobile no.</h2>
+    <input type="tel" id="secretCode" maxlength="10" placeholder="Enter 10-digit Secret Code" />
+    <button onclick="login()">Login</button>
+    
+    <div id="error" class="error">Invalid Code. Must be 10 digits.</div>
+  </div>
+
+ <div style="height: 200px; text-align: center;  width: 100%; margin-top: 20px; ">
+  <a href="https://wahushoping.vercel.app/Lucky.html" style="width: 200px; background-color: chocolate; padding: 10px; border-radius: 10px; font-weight: bolder; color: #fff;">More Ticket Book</a>
+  <h3  style="color: #f83505; font-weight:bolder;">Lottary Date&Time</h3>
+  <h4>🎄 Marry Christmas Lucky Draw 🎄</h4>
+  <p style="color: #ff96f1; font-weight:bolder;"> Date: 25 Dec 2025 Time: 7pm</p>
+  <h4>🎉 Happy New Year Lucky Draw 🎉</h4>
+  <p style="color: #ff96f1; font-weight:bolder;"> Date: 1 Jan 2026 Time: 1am</p>
+   
+  </div>
+<script>
+function login() {
+  let code = document.getElementById("secretCode").value.trim();
+  let error = document.getElementById("error");
+
+  if (!/^\d{10}$/.test(code)) {
+    error.style.display = "block";
+    return;
+  }
+
+  fetch("http://localhost:4000/api/login", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ secret: code })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      window.location.href = "dashboard.html?secret=" + code;
+    } else {
+      error.textContent = data.message;
+      error.style.display = "block";
+    }
+  });
+}
+
+
+
+</script>
+<script>
+  for (let i = 0; i < 85; i++) {
+    const flake = document.createElement("div");
+    flake.classList.add("snowflake");
+    flake.textContent = "❄";
+    flake.style.left = Math.random() * 100 + "vw";
+    flake.style.animationDelay = Math.random() * 8 + "s";
+    flake.style.fontSize = Math.random() * 20 + 10 + "px";
+    document.body.appendChild(flake);
+  }
+</script>
+
+</body>
+</html>
